@@ -2,6 +2,8 @@
 
 apt-get install openssh-server
 
+sed -i "s/^\(PrintLastLog\).*/\1 no/" /etc/ssh/sshd_config
+
 cat >> /etc/ssh/sshd_config <<EOF
 
 Match User philip
@@ -21,5 +23,9 @@ fi
 EOF
 
 cat /etc/ssh/sshrc
+
+sed -i "s/.*pam_motd\.so.*/#\0/" /etc/pam.d/sshd
+
+cat /etc/pam.d/sshd
 
 service ssh restart
